@@ -64,9 +64,9 @@ input:focus, select:focus { outline: 2px solid var(--acento); outline-offset: -1
   position: relative; overflow: hidden; border-radius: 14px;
   padding: 40px 36px; margin-bottom: 28px; min-height: 240px;
   display: flex; flex-direction: column; justify-content: flex-end; gap: 10px;
-  background:
-    repeating-linear-gradient(115deg, transparent 0 46px, rgba(255,255,255,.035) 46px 48px),
-    linear-gradient(120deg, #ff3d7f 0%, #ff8a3d 45%, #2b1055 100%);
+  background-color: #2b1055;
+  background-image: linear-gradient(120deg, #ff3d7f 0%, #ff8a3d 45%, #2b1055 100%);
+  background-size: cover; background-position: center 65%;
 }
 .destaque .etiqueta {
   align-self: flex-start; background: rgba(0,0,0,.45); padding: 4px 10px;
@@ -107,11 +107,13 @@ input:focus, select:focus { outline: 2px solid var(--acento); outline-offset: -1
 .capa {
   position: relative; aspect-ratio: 3 / 4; padding: 14px;
   display: flex; flex-direction: column; justify-content: flex-end;
+  background-size: cover; background-position: center;
 }
 .capa::before {
   content: ""; position: absolute; inset: 0;
-  background: repeating-linear-gradient(135deg, transparent 0 22px, rgba(255,255,255,.04) 22px 24px);
+  background: linear-gradient(to top, rgba(8,8,14,.88) 0%, rgba(8,8,14,.45) 32%, transparent 58%);
 }
+.mini-capa { background-size: cover; background-position: center; }
 .capa h3 {
   position: relative; font-family: var(--titulo); font-weight: 700;
   font-size: 1.7rem; line-height: .95; text-transform: uppercase;

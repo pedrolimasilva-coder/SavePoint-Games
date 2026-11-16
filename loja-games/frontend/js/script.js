@@ -53,7 +53,10 @@ function avisar(msg, erro = false) {
   avisar.t = setTimeout(() => (el.className = "aviso"), 3200);
 }
 
-// Cada jogo ganha uma "capa" gerada por cores (sem usar imagens com direitos autorais)
+// Capas: cada jogo usa a ilustração img/capas/<nome-do-jogo>.svg.
+// Se o arquivo não existir (ex.: jogo recém-cadastrado), aparece um degradê.
+const slug = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "")
+  .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const PALETAS = [
   ["#ff3d7f", "#ff9a3d"], ["#1e3c72", "#2a9d8f"], ["#8e2de2", "#4a00e0"],
   ["#c0392b", "#2c1810"], ["#11998e", "#38ef7d"], ["#f7971e", "#7a2e0e"],
@@ -62,7 +65,7 @@ const PALETAS = [
 ];
 function capa(jogo) {
   const [a, b] = PALETAS[jogo.id % PALETAS.length];
-  return `background: linear-gradient(150deg, ${a}, ${b});`;
+  return `background-image: url(img/capas/${slug(jogo.titulo)}.svg), linear-gradient(150deg, ${a}, ${b});`;
 }
 const classif = (j) =>
   `<span class="classif c${j.classificacao}" title="Classificação indicativa">${j.classificacao === 0 ? "L" : j.classificacao}</span>`;
@@ -138,6 +141,8 @@ async function carregarDestaque() {
   const etiqueta = j.pre_venda
     ? `PRÉ-VENDA · LANÇA ${dias <= 1 ? "AMANHÃ" : `EM ${dias} DIAS`} (${data(j.data_lancamento)})`
     : `OFERTA · -${j.desconto}%`;
+  $("#destaque").style.backgroundImage =
+    `linear-gradient(90deg, rgba(10,8,20,.88) 0%, rgba(10,8,20,.55) 50%, rgba(10,8,20,.1) 100%), url(img/capas/${slug(j.titulo)}.svg)`;
   $("#destaque").innerHTML = `
     <span class="etiqueta">${etiqueta}</span>
     <h1>${escapar(j.titulo)}</h1>
